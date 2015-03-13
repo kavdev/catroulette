@@ -1,0 +1,10 @@
+gunicorn==19.2.1
+Django==1.7.4
+psycopg2==2.6
+colorama==0.3.3
+termcolor==1.1.0
+raven==5.2.0
+dj-database-url==0.3.0
+djangoajax==2.2.12
+django-cors-headers==1.0.0
+django-static-precompiler==0.9
