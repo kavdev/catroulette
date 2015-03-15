@@ -2,17 +2,17 @@
 
 {% block content %}
     <div id="localVideo" muted></div>
-        <div id="remoteVideo"></div>
-    
-        <script type="text/javascript">
-            var webrtc = new SimpleWebRTC({
-                localVideoEl: 'localVideo',
-                remoteVideosEl: 'remoteVideo',
-                autoRequestMedia: true
-            });
-            
-            webrtc.on('readyToCall', function () {
-                webrtc.joinRoom('CatRoulette!');
-            });
+    <div id="remoteVideo"></div>
+
+    <script type="text/javascript">
+        var webrtc = new SimpleWebRTC({
+            localVideoEl: 'localVideo',
+            remoteVideosEl: 'remoteVideo',
+            autoRequestMedia: true
+        });
+        
+        webrtc.on('readyToCall', function () {
+            webrtc.joinRoom('CatRoulette!');
+        });
     </script>
 {% endblock %}
