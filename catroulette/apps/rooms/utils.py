@@ -75,7 +75,7 @@ def match_cat(cat):
                     logger.debug("\tprev score: " + str(likely_match_score))
                     logger.debug("\tnew score: " + str(aggregate_score))
 
-            if not previously_matched_room:
+            if likely_match and not previously_matched_room:
                 # Generate room_name
                 room_name = uuid.uuid4().hex
                 logger.debug("room: " + str(room_name))
