@@ -7,14 +7,25 @@
 
 """
 
+import logging
 import uuid
 
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model as get_cat_model
 
-from django_ajax.decorators import ajax
+logger = logging.getLogger(__name__)
 
 
-@ajax
+def check_for_match(cat_id):
+    cat = get_cat_model().objects.get(id=cat_id)
+    if cat.room_name:
+        logger.debug("Match found for cat " + str(cat.id) + ": " + cat.room_name)
+        room_name = cat.room_name
+        cat.delete()
+        return room_name
+
+    return None
+
+
 def match_cat(cat):
     match_found = False
     room_name = None
@@ -22,30 +33,52 @@ def match_cat(cat):
     # Keep trying to find a match
     while not match_found:
         # Is this cat already matched?
-        if cat.room_name:
-            room_name = cat.room_name
-            cat.delete()
+        previously_matched_room = check_for_match(cat.id)
+        if previously_matched_room:
+            room_name = previously_matched_room
             match_found = True
         else:
             likely_match = None
             likely_match_score = None
+            previously_matched_room = False
 
-            user_scores = [cat.vocalness, cat.intelligence, cat.energy]
+            cat_scores = [cat.vocalness, cat.intelligence, cat.energy]
 
-            for other_user in get_user_model().objects.filter(room_name=None):
-                other_user_scores = [other_user.vocalness, other_user.intelligence, other_user.energy]
-                combined_scores = [abs(x - y) for x, y in zip(user_scores, other_user_scores)]
+#             ## DEBUG ##
+#             all_cats = get_cat_model().objects.exclude(id=cat.id).filter(room_name=None)
+#             numcats = all_cats.count()
+#             logger.debug("cat " + str(cat.id) + " is searching for a match with " + str(numcats) + " cats. [" + str([cat.id for cat in all_cats]) + "]")
+#             ## END DEBUG ##
+
+            for other_cat in get_cat_model().objects.exclude(id=cat.id).filter(room_name=None):
+                other_cat_scores = [other_cat.vocalness, other_cat.intelligence, other_cat.energy]
+                combined_scores = [abs(x - y) for x, y in zip(cat_scores, other_cat_scores)]
 
                 aggregate_score = sum(combined_scores)
 
-                if not likely_match or aggregate_score < likely_match_score:
-                    likely_match = other_user
-                    likely_match_score = aggregate_score
-                    match_found = True
+                if not(likely_match and aggregate_score >= likely_match_score):
+                    # Is this cat already matched?
+                    previously_matched_room = check_for_match(cat.id)
+                    if previously_matched_room:
+                        room_name = previously_matched_room
+                        break  # break out of for loop
+                    else:
+                        logger.debug("Found a possible match with cat " + str(other_cat.id))
+                        logger.debug("\tprev score: " + str(likely_match_score))
+                        logger.debug("\tnew score: " + str(aggregate_score))
+                        likely_match = other_cat
+                        likely_match_score = aggregate_score
 
-            if match_found:
+                    match_found = True
+                else:
+                    logger.debug("Didn't match with cat " + str(other_cat.id))
+                    logger.debug("\tprev score: " + str(likely_match_score))
+                    logger.debug("\tnew score: " + str(aggregate_score))
+
+            if not previously_matched_room:
                 # Generate room_name
                 room_name = uuid.uuid4().hex
+                logger.debug("room: " + str(room_name))
 
                 # "signal" a match to the other user
                 likely_match.room_name = room_name
