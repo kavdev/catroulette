@@ -8,8 +8,8 @@
 
 from django.contrib.auth import get_user_model as get_cat_model
 from django.http.response import HttpResponseBadRequest
-from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
 
 from django_ajax.decorators import ajax
 
