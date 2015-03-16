@@ -1,6 +1,6 @@
 """
 .. module:: catroulette.apps.rooms.utils
-   :synopsis: CatRoulette Room Utilities .
+   :synopsis: CatRoulette Room Utilities.
 
 .. moduleauthor:: Alex Kavanaugh <kavanaugh.development@outlook.com>
 .. moduleauthor:: Arnav Murulidhar <murulidhar@yahoo.com>
