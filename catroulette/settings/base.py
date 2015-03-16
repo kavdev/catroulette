@@ -79,7 +79,7 @@ DATABASES = {
 #                                        Authentication Configuration                                      #
 # ======================================================================================================== #
 
-AUTH_USER_MODEL = 'core.CatRouletteUser'
+AUTH_USER_MODEL = 'core.CatRouletteCat'
 
 # ======================================================================================================== #
 #                                      Session/Security Configuration                                      #

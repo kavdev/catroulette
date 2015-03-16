@@ -8,14 +8,14 @@
 
 from django_ajax.decorators import ajax
 
-from .utils import match_user
-from django.contrib.auth import get_user_model
+from .utils import match_cat
+from django.contrib.auth import get_user_model as get_cat_model
 
 
 @ajax
 def get_room(request):
     """
-    User posted personality details. Create a user object in the
+    Cat posted personality details. Create a cat object in the
     database with those details and attempt to find a match
     """
 
@@ -23,7 +23,7 @@ def get_room(request):
     intelligence = request.POST["intelligence"]
     energy = request.POST["energy"]
 
-    new_user = get_user_model()(vocalness=vocalness, intelligence=intelligence, energy=energy)
-    new_user.save()
+    new_cat = get_cat_model()(vocalness=vocalness, intelligence=intelligence, energy=energy)
+    new_cat.save()
 
-    return {"room_name": match_user(new_user)}
+    return {"room_name": match_cat(new_cat)}

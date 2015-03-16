@@ -8,10 +8,10 @@
 
 from django.contrib import admin
 
-from .models import CatRouletteUser
+from .models import CatRouletteCat
 
 
-class CatRouletteUserAdmin(admin.ModelAdmin):
+class CatRouletteCatAdmin(admin.ModelAdmin):
     list_display = ('id', 'vocalness', 'intelligence', 'energy')
 
-admin.site.register(CatRouletteUser, CatRouletteUserAdmin)
+admin.site.register(CatRouletteCat, CatRouletteCatAdmin)

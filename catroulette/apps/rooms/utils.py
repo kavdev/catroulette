@@ -2,6 +2,7 @@
 .. module:: catroulette.apps.rooms.utils
    :synopsis: CatRoulette Room Utilities .
 
+.. moduleauthor:: Alex Kavanaugh <kavanaugh.development@outlook.com>
 .. moduleauthor:: Arnav Murulidhar <murulidhar@yahoo.com>
 
 """
@@ -14,22 +15,22 @@ from django_ajax.decorators import ajax
 
 
 @ajax
-def match_user(user):
+def match_cat(cat):
     match_found = False
     room_name = None
 
     # Keep trying to find a match
     while not match_found:
-        # Is this user already matched?
-        if user.room_name:
-            room_name = user.room_name
-            user.delete()
+        # Is this cat already matched?
+        if cat.room_name:
+            room_name = cat.room_name
+            cat.delete()
             match_found = True
         else:
             likely_match = None
             likely_match_score = None
 
-            user_scores = [user.vocalness, user.intelligence, user.energy]
+            user_scores = [cat.vocalness, cat.intelligence, cat.energy]
 
             for other_user in get_user_model().objects.filter(room_name=None):
                 other_user_scores = [other_user.vocalness, other_user.intelligence, other_user.energy]
@@ -51,6 +52,6 @@ def match_user(user):
                 likely_match.save()
 
                 # remove this user from the user list
-                user.delete()
+                cat.delete()
 
     return room_name
