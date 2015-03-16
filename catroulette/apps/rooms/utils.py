@@ -102,6 +102,11 @@ def match_cat(cat):
                     # remove this user from the user list
 #                     cat.delete()
 
+    # Hacks for days
+    if likely_match and room_name != likely_match.room_name:
+        if cat.id > likely_match.id:
+            room_name = likely_match.room_name
+
     cat.room_name = room_name
     cat.save()
 
