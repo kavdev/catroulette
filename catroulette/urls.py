@@ -17,6 +17,7 @@ from django.views.generic.base import RedirectView, TemplateView
 from django.views.defaults import permission_denied, page_not_found
 
 from .apps.core.views import handler500
+from .apps.rooms.views import get_room
 
 admin.autodiscover()
 
@@ -30,6 +31,11 @@ urlpatterns = [
     url(r'^robots\.txt$', RedirectView.as_view(url=staticfiles('robots.txt')), name='robots'),
     url(r'^zoidberg/', include(admin.site.urls)),  # admin site urls, masked
     url(r'^admin/', TemplateView.as_view(template_name="honeypot.html"), name="honeypot"),  # admin site urls, honeypot
+]
+
+# Rooms
+urlpatterns += [
+    url(r'^rooms/', get_room, name="find_match"),
 ]
 
 # Hooks to intentionally raise errors
