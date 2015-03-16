@@ -9,7 +9,7 @@
 import logging
 
 from django.conf import settings
-from django.conf.urls import include, url
+from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.templatetags.staticfiles import static as staticfiles
@@ -29,7 +29,6 @@ urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name="core/index.html"), name='home'),
     url(r'^favicon\.ico$', RedirectView.as_view(url=staticfiles('img/favicon.ico')), name='favicon'),
     url(r'^robots\.txt$', RedirectView.as_view(url=staticfiles('robots.txt')), name='robots'),
-    url(r'^zoidberg/', include(admin.site.urls)),  # admin site urls, masked
     url(r'^admin/', TemplateView.as_view(template_name="honeypot.html"), name="honeypot"),  # admin site urls, honeypot
 ]
 
