@@ -83,8 +83,3 @@ class CatMatchTest(TestCase):
         self.assertEqual(room_name_1, match_cat(cat1_pre))
         self.assertEqual(room_name_2, match_cat(cat2_pre))
         self.assertEqual(room_name_1, match_cat(cat3_pre))
-
-#     This should timeout
-#     def test_lonely_cat(self):
-#         cat1 = get_user_model().objects.create(vocalness=1, intelligence=5, energy=3)
-#         match_cat(cat1)

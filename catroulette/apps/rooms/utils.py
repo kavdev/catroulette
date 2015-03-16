@@ -41,7 +41,7 @@ def match_cat(cat):
         else:
             likely_match = None
             likely_match_score = None
-            previously_matched_room = False
+            previously_matched_room = None
 
             cat_scores = [cat.vocalness, cat.intelligence, cat.energy]
 
@@ -78,8 +78,8 @@ def match_cat(cat):
 
             if likely_match and not previously_matched_room:
                 # Generate room_name
-                room_name = uuid.uuid4().hex
-                logger.debug("room: " + str(room_name))
+                room_name = str(uuid.uuid4().hex)
+                logger.debug("room: " + room_name)
 
                 # "signal" a match to the other user
                 likely_match.room_name = room_name
@@ -90,4 +90,4 @@ def match_cat(cat):
                 # remove this user from the user list
 #                 cat.delete()
 
-    return room_name
+    return room_name, likely_match
