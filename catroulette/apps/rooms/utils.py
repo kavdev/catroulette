@@ -21,7 +21,7 @@ def check_for_match(cat_id):
     if cat.room_name:
         logger.debug("Match found for cat " + str(cat.id) + ": " + cat.room_name)
         room_name = cat.room_name
-        cat.delete()
+#         cat.delete()
         return room_name
 
     return None
@@ -86,6 +86,6 @@ def match_cat(cat):
                 likely_match.save()
 
                 # remove this user from the user list
-                cat.delete()
+#                 cat.delete()
 
     return room_name
