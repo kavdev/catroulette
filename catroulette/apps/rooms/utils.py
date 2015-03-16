@@ -20,9 +20,8 @@ def check_for_match(cat_id):
     cat = get_cat_model().objects.get(id=cat_id)
     if cat.room_name:
         logger.debug("Match found for cat " + str(cat.id) + ": " + cat.room_name)
-        room_name = cat.room_name
         cat.delete()
-        return room_name
+        return cat.room_name
 
     return None
 
@@ -51,6 +50,11 @@ def match_cat(cat):
 #             numcats = all_cats.count()
 #             logger.debug("cat " + str(cat.id) + " is searching for a match with " + str(numcats) + " cats. [" + str([cat.id for cat in all_cats]) + "]")
 #             ## END DEBUG ##
+
+            previously_matched_room = check_for_match(cat.id)
+            if previously_matched_room:
+                room_name = previously_matched_room
+                break  # break out of while loop
 
             for other_cat in get_cat_model().objects.exclude(id=cat.id).filter(room_name=None):
                 other_cat_scores = [other_cat.vocalness, other_cat.intelligence, other_cat.energy]
@@ -92,4 +96,4 @@ def match_cat(cat):
 #     cat.room_name = room_name
 #     cat.save()
 
-    return room_name, likely_match
+    return room_name, likely_match, True if previously_matched_room else False
