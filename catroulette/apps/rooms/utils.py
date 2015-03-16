@@ -54,6 +54,7 @@ def match_cat(cat):
             previously_matched_room = check_for_match(cat.id)
             if previously_matched_room:
                 room_name = previously_matched_room
+                match_found = True
                 break  # break out of while loop
 
             for other_cat in get_cat_model().objects.exclude(id=cat.id).filter(room_name=None):
@@ -67,6 +68,7 @@ def match_cat(cat):
                     previously_matched_room = check_for_match(cat.id)
                     if previously_matched_room:
                         room_name = previously_matched_room
+                        match_found = True
                         break  # break out of for loop
                     else:
                         logger.debug("Found a possible match with cat " + str(other_cat.id))
