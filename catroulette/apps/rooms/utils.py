@@ -121,7 +121,7 @@ def match_cat(cat):
     if new_likely and new_cat.room_name != new_likely.room_name:
         if new_cat.id > new_likely.id:
             room_name = new_likely.room_name
-        in_if = True
+            in_if = True
 
     if new_cat.room_name:
         changed_existing_cat = True
