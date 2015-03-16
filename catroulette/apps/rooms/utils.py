@@ -84,6 +84,8 @@ def match_cat(cat):
                 # "signal" a match to the other user
                 likely_match.room_name = room_name
                 likely_match.save()
+                cat.room_name = room_name
+                cat.save()
 
                 # remove this user from the user list
 #                 cat.delete()
