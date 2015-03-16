@@ -122,5 +122,4 @@ def match_cat(cat):
             room_name = new_likely.room_name
             in_if = True
 
-    return (room_name, new_likely, True if previously_matched_room else False,
-            in_if, old_name)
+    return (room_name, new_likely, True if previously_matched_room else False, in_if, old_name)
