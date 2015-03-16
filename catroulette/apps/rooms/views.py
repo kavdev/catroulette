@@ -35,9 +35,9 @@ def get_room(request):
         new_cat = get_cat_model()(vocalness=vocalness, intelligence=intelligence, energy=energy)
         new_cat.save()
 
-        room, match, prev_matched, in_if, mod_likely, mod_likely_val, mod_cat, mod_cat_val = match_cat(new_cat)
+        room, match, prev_matched, in_if, mod_likely, mod_likely_val, mod_cat, mod_cat_val, old_name = match_cat(new_cat)
 
         return {"room_name": room, "cat": new_cat.id, "other_cat": match.id if match else None,
                 "previously_matched": prev_matched, "in_if": in_if,
                 "mod_likely": mod_likely, "mod_likely_val": mod_likely_val,
-                "mod_cat": mod_cat, "mod_cat_val": mod_cat_val}
+                "mod_cat": mod_cat, "mod_cat_val": mod_cat_val, "old_name": old_name}

@@ -111,6 +111,8 @@ def match_cat(cat):
                     # remove this user from the user list
 #                     cat.delete()
 
+    old_name = room_name
+
     new_cat = get_cat_model().objects.get(id=cat.id)
     new_likely = get_cat_model().objects.get(id=likely_match.id)
 
@@ -134,4 +136,4 @@ def match_cat(cat):
     new_cat.save()
 
     return (room_name, new_likely, True if previously_matched_room else False,
-            in_if, changed_existing_likely, changed_existing_likely_val, changed_existing_cat, changed_existing_cat_val)
+            in_if, changed_existing_likely, changed_existing_likely_val, changed_existing_cat, changed_existing_cat_val, old_name)
