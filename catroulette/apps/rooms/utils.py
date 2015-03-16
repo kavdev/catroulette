@@ -114,7 +114,7 @@ def match_cat(cat):
 
     new_cat.room_name = room_name
     new_cat.save()
-    
+
     in_if = False
     # Hacks for days
     if new_likely and new_cat.room_name != new_likely.room_name:
