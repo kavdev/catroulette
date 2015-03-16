@@ -8,6 +8,7 @@
 
 from django.contrib.auth import get_user_model as get_cat_model
 from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
 
 from django_ajax.decorators import ajax
 
@@ -15,6 +16,7 @@ from .utils import match_cat
 
 
 @ajax
+@csrf_exempt
 @require_POST
 def get_room(request):
     """
