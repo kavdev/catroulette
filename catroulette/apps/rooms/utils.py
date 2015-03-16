@@ -32,11 +32,6 @@ def match_cat(cat):
     likely_match = None
     previously_matched_room = None
 
-    changed_existing_cat = False
-    changed_existing_cat_val = None
-    changed_existing_likely = False
-    changed_existing_likely_val = None
-
     # Keep trying to find a match
     while not match_found:
         # Is this cat already matched?
@@ -100,10 +95,6 @@ def match_cat(cat):
                     match_found = True
                     break  # break out of while loop
                 else:
-                    if likely_match.room_name:
-                        changed_existing_likely = True
-                        changed_existing_likely_val = likely_match.room_name
-
                     # "signal" a match to the other user
                     likely_match.room_name = room_name
                     likely_match.save()
@@ -116,17 +107,6 @@ def match_cat(cat):
     new_cat = get_cat_model().objects.get(id=cat.id)
     new_likely = get_cat_model().objects.get(id=likely_match.id)
 
-    in_if = False
-    # Hacks for days
-    if new_likely and new_cat.room_name != new_likely.room_name:
-        if new_cat.id > new_likely.id:
-            room_name = new_likely.room_name
-            in_if = True
-
-    if new_cat.room_name:
-        changed_existing_cat = True
-        changed_existing_cat_val = new_cat.room_name
-
     previously_matched_room = check_for_match(new_cat.id)
     if previously_matched_room:
         room_name = previously_matched_room
@@ -134,6 +114,13 @@ def match_cat(cat):
 
     new_cat.room_name = room_name
     new_cat.save()
+    
+    in_if = False
+    # Hacks for days
+    if new_likely and new_cat.room_name != new_likely.room_name:
+        if new_cat.id > new_likely.id:
+            room_name = new_likely.room_name
+            in_if = True
 
     return (room_name, new_likely, True if previously_matched_room else False,
-            in_if, changed_existing_likely, changed_existing_likely_val, changed_existing_cat, changed_existing_cat_val, old_name)
+            in_if, old_name)
