@@ -23,16 +23,23 @@ class CatMatchTest(TestCase):
         cat5 = get_user_model().objects.create(vocalness=8, intelligence=8, energy=8)
         cat6 = get_user_model().objects.create(vocalness=4, intelligence=1, energy=5)
 
-        room1, match1 = match_cat(cat1)
-        room2, match2 = match_cat(cat2)
-        room3, match3 = match_cat(cat3)
-        room4, match4 = match_cat(cat4)
-        room5, match5 = match_cat(cat5)
-        room6, match6 = match_cat(cat6)
+        room1, match1, prev_match1 = match_cat(cat1)
+        room2, match2, prev_match2 = match_cat(cat2)
+        room3, match3, prev_match3 = match_cat(cat3)
+        room4, match4, prev_match4 = match_cat(cat4)
+        room5, match5, prev_match5 = match_cat(cat5)
+        room6, match6, prev_match6 = match_cat(cat6)
 
         self.assertEqual(room1, room2, "Cats 1 and 2 didn't match!")
         self.assertEqual(room3, room4, "Cats 3 and 4 didn't match!")
         self.assertEqual(room5, room6, "Cats 5 and 6 didn't match!")
+
+        self.assertFalse(prev_match1)
+        self.assertTrue(prev_match2)
+        self.assertFalse(prev_match3)
+        self.assertTrue(prev_match4)
+        self.assertFalse(prev_match5)
+        self.assertTrue(prev_match6)
 
 #         cat1_redux = get_user_model().objects.get(id=cat1.id)
 #         cat2_redux = get_user_model().objects.get(id=cat2.id)
@@ -71,16 +78,23 @@ class CatMatchTest(TestCase):
         cat5 = get_user_model().objects.create(vocalness=3, intelligence=5, energy=8)
         cat6 = get_user_model().objects.create(vocalness=7, intelligence=2, energy=3)
 
-        room1, match1 = match_cat(cat1)
-        room2, match2 = match_cat(cat2)
-        room3, match3 = match_cat(cat3)
-        room4, match4 = match_cat(cat4)
-        room5, match5 = match_cat(cat5)
-        room6, match6 = match_cat(cat6)
+        room1, match1, prev_match1 = match_cat(cat1)
+        room2, match2, prev_match2 = match_cat(cat2)
+        room3, match3, prev_match3 = match_cat(cat3)
+        room4, match4, prev_match4 = match_cat(cat4)
+        room5, match5, prev_match5 = match_cat(cat5)
+        room6, match6, prev_match6 = match_cat(cat6)
 
         self.assertEqual(room1, room2, "Cats 1 and 2 didn't match!")
         self.assertEqual(room3, room5, "Cats 3 and 5 didn't match!")
         self.assertEqual(room4, room6, "Cats 4 and 6 didn't match!")
+
+        self.assertFalse(prev_match1)
+        self.assertTrue(prev_match2)
+        self.assertFalse(prev_match3)
+        self.assertFalse(prev_match4)
+        self.assertTrue(prev_match5)
+        self.assertTrue(prev_match6)
 
     def test_six_cats_really_non_sequential(self):
         cat1 = get_user_model().objects.create(vocalness=1, intelligence=5, energy=3)
@@ -90,16 +104,23 @@ class CatMatchTest(TestCase):
         cat5 = get_user_model().objects.create(vocalness=3, intelligence=5, energy=8)
         cat6 = get_user_model().objects.create(vocalness=7, intelligence=3, energy=2)
 
-        room1, match1 = match_cat(cat1)
-        room2, match2 = match_cat(cat2)
-        room3, match3 = match_cat(cat3)
-        room4, match4 = match_cat(cat4)
-        room5, match5 = match_cat(cat5)
-        room6, match6 = match_cat(cat6)
+        room1, match1, prev_match1 = match_cat(cat1)
+        room2, match2, prev_match2 = match_cat(cat2)
+        room3, match3, prev_match3 = match_cat(cat3)
+        room4, match4, prev_match4 = match_cat(cat4)
+        room5, match5, prev_match5 = match_cat(cat5)
+        room6, match6, prev_match6 = match_cat(cat6)
 
         self.assertEqual(room1, room2, "Cats 1 and 2 didn't match!")
         self.assertEqual(room3, room5, "Cats 3 and 5 didn't match!")
         self.assertEqual(room4, room6, "Cats 4 and 6 didn't match!")
+
+        self.assertFalse(prev_match1)
+        self.assertTrue(prev_match2)
+        self.assertFalse(prev_match3)
+        self.assertFalse(prev_match4)
+        self.assertTrue(prev_match5)
+        self.assertTrue(prev_match6)
 
     def test_three_cats_predefined_rooms(self):
         room_name_1 = "test_room_1"
@@ -110,12 +131,17 @@ class CatMatchTest(TestCase):
         cat3_pre = get_user_model().objects.create(vocalness=1, intelligence=5, energy=3, room_name=room_name_1)
         cat4_pre = get_user_model().objects.create(vocalness=3, intelligence=5, energy=8, room_name=room_name_2)
 
-        room1, match1 = match_cat(cat1_pre)
-        room2, match2 = match_cat(cat2_pre)
-        room3, match3 = match_cat(cat3_pre)
-        room4, match4 = match_cat(cat4_pre)
+        room1, match1, prev_match1 = match_cat(cat1_pre)
+        room2, match2, prev_match2 = match_cat(cat2_pre)
+        room3, match3, prev_match3 = match_cat(cat3_pre)
+        room4, match4, prev_match4 = match_cat(cat4_pre)
 
         self.assertEqual(room_name_1, room1)
         self.assertEqual(room_name_2, room2)
         self.assertEqual(room_name_1, room3)
         self.assertEqual(room_name_2, room4)
+        
+        self.assertTrue(prev_match1)
+        self.assertTrue(prev_match2)
+        self.assertTrue(prev_match3)
+        self.assertTrue(prev_match4)

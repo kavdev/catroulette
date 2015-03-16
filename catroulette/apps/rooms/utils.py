@@ -20,7 +20,7 @@ def check_for_match(cat_id):
     cat = get_cat_model().objects.get(id=cat_id)
     if cat.room_name:
         logger.debug("Match found for cat " + str(cat.id) + ": " + cat.room_name)
-        cat.delete()
+#         cat.delete()
         return cat.room_name
 
     return None
@@ -30,6 +30,7 @@ def match_cat(cat):
     match_found = False
     room_name = None
     likely_match = None
+    previously_matched_room = None
 
     # Keep trying to find a match
     while not match_found:
@@ -88,14 +89,20 @@ def match_cat(cat):
                 room_name = str(uuid.uuid4().hex)
                 logger.debug("room: " + room_name)
 
-                # "signal" a match to the other user
-                likely_match.room_name = room_name
-                likely_match.save()
+                previously_matched_room = check_for_match(cat.id)
+                if previously_matched_room:
+                    room_name = previously_matched_room
+                    match_found = True
+                    break  # break out of while loop
+                else:
+                    # "signal" a match to the other user
+                    likely_match.room_name = room_name
+                    likely_match.save()
 
-                # remove this user from the user list
-                cat.delete()
+                    # remove this user from the user list
+#                     cat.delete()
 
-#     cat.room_name = room_name
-#     cat.save()
+    cat.room_name = room_name
+    cat.save()
 
     return room_name, likely_match, True if previously_matched_room else False
