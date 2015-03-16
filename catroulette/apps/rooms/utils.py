@@ -106,8 +106,9 @@ def match_cat(cat):
     if likely_match and room_name != likely_match.room_name:
         if cat.id > likely_match.id:
             room_name = likely_match.room_name
+        in_if = True
 
     cat.room_name = room_name
     cat.save()
 
-    return room_name, likely_match, True if previously_matched_room else False
+    return room_name, likely_match, True if previously_matched_room else False, True if in_if else False
