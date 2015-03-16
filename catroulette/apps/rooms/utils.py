@@ -32,6 +32,11 @@ def match_cat(cat):
     likely_match = None
     previously_matched_room = None
 
+    changed_existing_cat = False
+    changed_existing_cat_val = None
+    changed_existing_likely = False
+    changed_existing_likely_val = None
+
     # Keep trying to find a match
     while not match_found:
         # Is this cat already matched?
@@ -95,6 +100,10 @@ def match_cat(cat):
                     match_found = True
                     break  # break out of while loop
                 else:
+                    if likely_match.room_name:
+                        changed_existing_likely = True
+                        changed_existing_likely_val = likely_match.room_name
+
                     # "signal" a match to the other user
                     likely_match.room_name = room_name
                     likely_match.save()
@@ -109,7 +118,12 @@ def match_cat(cat):
             room_name = likely_match.room_name
         in_if = True
 
+    if cat.room_name:
+        changed_existing_cat = True
+        changed_existing_cat_val = cat.room_name
+
     cat.room_name = room_name
     cat.save()
 
-    return room_name, likely_match, True if previously_matched_room else False, True if in_if else False
+    return (room_name, likely_match, True if previously_matched_room else False,
+            in_if, changed_existing_likely, changed_existing_likely_val, changed_existing_cat, changed_existing_cat_val)
