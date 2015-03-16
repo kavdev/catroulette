@@ -23,9 +23,7 @@ def get_room(request):
     intelligence = request.POST["intelligence"]
     energy = request.POST["energy"]
 
-    new_user = get_user_model()(vocalness=vocalness,
-                                intelligence=intelligence,
-                                energy=energy)
+    new_user = get_user_model()(vocalness=vocalness, intelligence=intelligence, energy=energy)
     new_user.save()
 
     return {"room_name": match_user(new_user)}
