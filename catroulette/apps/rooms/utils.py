@@ -30,6 +30,7 @@ def check_for_match(cat_id):
 def match_cat(cat):
     match_found = False
     room_name = None
+    likely_match = None
 
     # Keep trying to find a match
     while not match_found:
@@ -37,6 +38,7 @@ def match_cat(cat):
         previously_matched_room = check_for_match(cat.id)
         if previously_matched_room:
             room_name = previously_matched_room
+            likely_match = get_cat_model().objects.exclude(id=cat.id).filter(room_name=room_name)[0]
             match_found = True
         else:
             likely_match = None
@@ -62,6 +64,7 @@ def match_cat(cat):
                     previously_matched_room = check_for_match(cat.id)
                     if previously_matched_room:
                         room_name = previously_matched_room
+                        likely_match = get_cat_model().objects.exclude(id=cat.id).filter(room_name=room_name)[0]
                         break  # break out of for loop
                     else:
                         logger.debug("Found a possible match with cat " + str(other_cat.id))
@@ -84,10 +87,11 @@ def match_cat(cat):
                 # "signal" a match to the other user
                 likely_match.room_name = room_name
                 likely_match.save()
-                cat.room_name = room_name
-                cat.save()
 
                 # remove this user from the user list
 #                 cat.delete()
+
+    cat.room_name = room_name
+    cat.save()
 
     return room_name, likely_match
