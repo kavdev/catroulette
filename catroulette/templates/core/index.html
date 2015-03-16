@@ -132,7 +132,7 @@
     
         webrtc.on('readyToCall', function() {
             // POST slider values to recieve an appropriate room/roomName
-            ajaxPost("{% url 'find_match' ", {"vocalness": vocalnessSliderVal, "intelligence": intelligenceSliderVal, "energy": energySliderVal}, function(response_context) {
+            ajaxPost("{% url 'find_match' %}", {"vocalness": vocalnessSliderVal, "intelligence": intelligenceSliderVal, "energy": energySliderVal}, function(response_context) {
                 webrtc.joinRoom(response_context["room_name"]); // Join the specified room name
                 $("#catPic").hide(); // Hide the loading gif
                 $("#findPartner").html("Find a new match"); // "Find a Match" --> "Find Next Match"
