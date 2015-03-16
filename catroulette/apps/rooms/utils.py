@@ -111,19 +111,27 @@ def match_cat(cat):
                     # remove this user from the user list
 #                     cat.delete()
 
+    new_cat = get_cat_model().objects.get(id=cat.id)
+    new_likely = get_cat_model().objects.get(id=likely_match.id)
+
     in_if = False
     # Hacks for days
-    if likely_match and room_name != likely_match.room_name:
-        if cat.id > likely_match.id:
-            room_name = likely_match.room_name
+    if new_likely and new_cat.room_name != new_likely.room_name:
+        if new_cat.id > new_likely.id:
+            room_name = new_likely.room_name
         in_if = True
 
-    if cat.room_name:
+    if new_cat.room_name:
         changed_existing_cat = True
-        changed_existing_cat_val = cat.room_name
+        changed_existing_cat_val = new_cat.room_name
 
-    cat.room_name = room_name
-    cat.save()
+    previously_matched_room = check_for_match(new_cat.id)
+    if previously_matched_room:
+        room_name = previously_matched_room
+        match_found = True
 
-    return (room_name, likely_match, True if previously_matched_room else False,
+    new_cat.room_name = room_name
+    new_cat.save()
+
+    return (room_name, new_likely, True if previously_matched_room else False,
             in_if, changed_existing_likely, changed_existing_likely_val, changed_existing_cat, changed_existing_cat_val)
