@@ -92,13 +92,9 @@
     // "Find a Match" click handler
     $("#findPartner").click(function(e) {
     
-        // If Find a next match, 
-       // if ($("#findPartner").html() === "Find a new match") {
-            $("#tmp").empty();
-            $("#catPic").show();
-       // }
 
-
+        $("#tmp").empty();
+        $("#catPic").show();
 
         // Set loading gif while a match is found
         $("#catPic").attr("src", "/static/img/avatar-cat.gif");
@@ -127,18 +123,8 @@
             return;
         }
 
-
-        // Add our video containers 
-
-        //$("#localScreenContainer").empty();      
-       // $("#localScreenContainer").append("<div id=\"localVideo\" muted></div>");
-
-       // $("#remotes").empty();
-       // $("#remotes").append("<div id=\"remoteVideo\"></div>");
-    
-     $("#tmp").empty();
-     $("#tmp").append("<div id=\"localVideo\" muted></div>");
-    //$("#tmp").append("<div id=\"remoteVideo\"></div>");
+        $("#tmp").empty();
+        $("#tmp").append("<div id=\"localVideo\" muted></div>");
 
 
         var webrtc = new SimpleWebRTC({
@@ -165,7 +151,6 @@
                 // suppress contextmenu
                 video.oncontextmenu = function () { return false; };
 
-                //remotes.appendChild(container);
                 $("#tmp").prepend(container);
             }
         });
@@ -175,11 +160,14 @@
             webrtc.on('videoRemoved', function (video, peer) {
                 console.log('video removed ', peer);
                 var remotes = document.getElementById('tmp');
-                alert("CHECK THIS LOGIC")
                 var el = document.getElementById(peer ? 'container_' + webrtc.getDomId(peer) : 'localScreenContainer'); 
                 if (remotes && el) {
                     remotes.removeChild(el);
                 }
+
+                $("#tmp").empty();
+                $(".hideMe").show();
+
             });
 
         
@@ -187,9 +175,7 @@
         webrtc.on('readyToCall', function() {
 
             //temporarily hardcoding roomname
-            webrtc.joinRoom("acb12345678");
-            $("#catPic").hide();                       
-            //$("#findPartner").html("Find a new match");
+            webrtc.joinRoom("acb12345678");                     
 
             /*
             // POST slider values to recieve an appropriate room/roomName
@@ -203,20 +189,22 @@
             */
         });
     
-        webrtc.on('joinedRoom', function() {
-            // pointless
-        });
     
         webrtc.on('localMediaError', function() {
             alert("localMediaError - camera/mic access was probably denied");
         });
     
+        webrtc.on('joinedRoom', function() {
+            // pointless
+        });
+
         webrtc.on('error', function() {
             alert("Error - Something bad happened...");
         });
     
         webrtc.on('createdPeer', function() {
             alert("connected to peer!");
+            $("#catPic").hide();  
             var audio = new Audio('/static/audio/meow.mp3');
             audio.play();
         });
