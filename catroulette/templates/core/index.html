@@ -57,12 +57,6 @@
                             <br>
                             <br>
                         </center>
-                        <script>
-                             function myCallback(json) {
-                                $("#catFact").html("Complimentary Cat Fact: " + json.facts[0]);
-                             }
-                        </script>
-                        <script type="text/javascript" src="//json2jsonp.com/?url=http://catfacts-api.appspot.com/api/facts?number=2&callback=myCallback"></script>
                     </div>
                 </div>
             </div>
@@ -72,153 +66,157 @@
 
 {% block extended_scripts %}
 <script type="text/javascript">
-    var vocalnessSlider = $("#vocalnessSlider").slider();
-    var intelligenceSlider = $("#intelligenceSlider").slider();
-    var energySlider = $("#energySlider").slider();
-    
-    
-    // Click handler for sidebar minimization/expansion
-    $("#menu-toggle").click(function(e) {
-        if ($("#menu-toggle").html() === "Hide Settings")
-            $("#menu-toggle").html("Show Settings");
-        else
-            $("#menu-toggle").html("Hide Settings");
-    
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-    
-    
-    // "Find a Match" click handler
-    $("#findPartner").click(function(e) {
-    
+    function catfactCallback(json) {
+        $("#catFact").html("Complimentary Cat Fact: " + json.facts[0]);
+    }
 
-        $("#tmp").empty();
-        $("#catPic").show();
-
-        // Set loading gif while a match is found
-        $("#catPic").attr("src", "/static/img/avatar-cat.gif");
-    
-        // Hide the sidebar
-        if (!$("#wrapper").hasClass("toggled")) {
-            $("#wrapper").toggleClass("toggled");
-            $("#menu-toggle").html("Show Settings");
-        }
-    
-        // Get reference to sliders
+    $(document).ready(function () {
         var vocalnessSlider = $("#vocalnessSlider").slider();
         var intelligenceSlider = $("#intelligenceSlider").slider();
         var energySlider = $("#energySlider").slider();
-    
-        // Get reference to slider values
-        var vocalnessSliderVal = vocalnessSlider.slider('getValue');
-        var intelligenceSliderVal = intelligenceSlider.slider('getValue');
-        var energySliderVal = energySlider.slider('getValue');
-    
 
-        // Validate settings before we continue
-        if (!($.isNumeric(vocalnessSliderVal) && $.isNumeric(intelligenceSliderVal) && $.isNumeric(energySliderVal))) {
-            alert("Couldn't determine slider values!")
-            $("#catPic").attr("src", "/static/img/happycat.jpg");
-            return;
-        }
-
-        $("#tmp").empty();
-        $("#tmp").append("<div id=\"localVideo\" muted></div>");
-
-
-        var webrtc = new SimpleWebRTC({
-            localVideoEl: 'localVideo',
-            remoteVideosEl: '',
-            autoRequestMedia: true
-        });
-
-        // a peer video has been added
-        webrtc.on('videoAdded', function (video, peer) {
-            console.log('video added', peer);
-
-            // chat just started, hide the banner/landing page stuff
-            $(".hideMe").hide();
-            $("body").toggleClass("dark_background", 600);
-            
-
-            $("#catFact").css("bottom", "-829px");
-
-            var remotes = document.getElementById('tmp');
-            if (remotes) {
-                var container = document.createElement('div');
-                $(container).addClass("embed-responsive embed-responsive-16by9");
-
-                container.className = 'videoContainer';
-                container.id = 'container_' + webrtc.getDomId(peer);
-
-
-                $(video).addClass("embed-responsive-item");
-
-
-                container.appendChild(video);
-
-
-                // suppress contextmenu
-                video.oncontextmenu = function () { return false; };
-
-                $("#tmp").prepend(container);
-            }
-        });
-
-
-             // a peer video was removed
-            webrtc.on('videoRemoved', function (video, peer) {
-                console.log('video removed ', peer);
-                var remotes = document.getElementById('tmp');
-                var el = document.getElementById(peer ? 'container_' + webrtc.getDomId(peer) : 'localScreenContainer'); 
-                if (remotes && el) {
-                    remotes.removeChild(el);
-                }
-
-                $("#tmp").empty();
-                $(".hideMe").show();
-                $("body").toggleClass("dark_background", 600);
-                $("#catPic").attr("src", "/static/img/happycat.jpg");
-                $("#catFact").css("bottom", "0px");
-                alert("Partner disconnected!")
-                location.reload(true);
-            });
-
+        // Click handler for sidebar minimization/expansion
+        $("#menu-toggle").click(function(e) {
+            if ($("#menu-toggle").html() === "Hide Settings")
+                $("#menu-toggle").html("Show Settings");
+            else
+                $("#menu-toggle").html("Hide Settings");
         
-        // When the mic and cam are ready...
-        webrtc.on('readyToCall', function() {
-
-            //temporarily hardcoding roomname
-            webrtc.joinRoom("acb12345678");                     
-
-            /*
-            // POST slider values to recieve an appropriate room/roomName
-            ajaxPost("{% url 'find_match' %}", {"vocalness": vocalnessSliderVal, "intelligence": intelligenceSliderVal, "energy": energySliderVal}, function(response_context) {
-                webrtc.joinRoom(response_context["room_name"]); // Join the specified room name
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+        
+        
+        // "Find a Match" click handler
+        $("#findPartner").click(function(e) {
+            $("#tmp").empty();
+            $("#catPic").show();
+    
+            // Set loading gif while a match is found
+            $("#catPic").attr("src", "/static/img/avatar-cat.gif");
+        
+            // Hide the sidebar
+            if (!$("#wrapper").hasClass("toggled")) {
+                $("#wrapper").toggleClass("toggled");
+                $("#menu-toggle").html("Show Settings");
+            }
+        
+            // Get reference to sliders
+            var vocalnessSlider = $("#vocalnessSlider").slider();
+            var intelligenceSlider = $("#intelligenceSlider").slider();
+            var energySlider = $("#energySlider").slider();
+        
+            // Get reference to slider values
+            var vocalnessSliderVal = vocalnessSlider.slider('getValue');
+            var intelligenceSliderVal = intelligenceSlider.slider('getValue');
+            var energySliderVal = energySlider.slider('getValue');
+        
+    
+            // Validate settings before we continue
+            if (!($.isNumeric(vocalnessSliderVal) && $.isNumeric(intelligenceSliderVal) && $.isNumeric(energySliderVal))) {
+                alert("Couldn't determine slider values!")
+                $("#catPic").attr("src", "/static/img/happycat.jpg");
+                return;
+            }
+    
+            $("#tmp").empty();
+            $("#tmp").append("<div id=\"localVideo\" muted></div>");
+    
+    
+            var webrtc = new SimpleWebRTC({
+                localVideoEl: 'localVideo',
+                remoteVideosEl: '',
+                autoRequestMedia: true
             });
-            */
-        });
+    
+            // a peer video has been added
+            webrtc.on('videoAdded', function (video, peer) {
+                console.log('video added', peer);
+    
+                // chat just started, hide the banner/landing page stuff
+                $(".hideMe").hide();
+                $("body").toggleClass("dark_background", 600);
+                
+    
+                $("#catFact").css("bottom", "-829px");
+    
+                var remotes = document.getElementById('tmp');
+                if (remotes) {
+                    var container = document.createElement('div');
+                    $(container).addClass("embed-responsive embed-responsive-16by9");
+    
+                    container.className = 'videoContainer';
+                    container.id = 'container_' + webrtc.getDomId(peer);
     
     
-        webrtc.on('localMediaError', function() {
-            alert("localMediaError - camera/mic access was probably denied");
-        });
+                    $(video).addClass("embed-responsive-item");
     
-        webrtc.on('joinedRoom', function() {
-            // pointless
-        });
-
-        webrtc.on('error', function() {
-            alert("Error - Something bad happened...");
-        });
     
-        webrtc.on('createdPeer', function() {
-            $("#catPic").hide();  
-            var audio = new Audio('/static/audio/meow.mp3');
-            audio.play();
-        });
+                    container.appendChild(video);
     
+    
+                    // suppress contextmenu
+                    video.oncontextmenu = function () { return false; };
+    
+                    $("#tmp").prepend(container);
+                }
+            });
+    
+    
+                 // a peer video was removed
+                webrtc.on('videoRemoved', function (video, peer) {
+                    console.log('video removed ', peer);
+                    var remotes = document.getElementById('tmp');
+                    var el = document.getElementById(peer ? 'container_' + webrtc.getDomId(peer) : 'localScreenContainer'); 
+                    if (remotes && el) {
+                        remotes.removeChild(el);
+                    }
+    
+                    $("#tmp").empty();
+                    $(".hideMe").show();
+                    $("body").toggleClass("dark_background", 600);
+                    $("#catPic").attr("src", "/static/img/happycat.jpg");
+                    $("#catFact").css("bottom", "0px");
+                    alert("Partner disconnected!")
+                    location.reload(true);
+                });
+    
+            
+            // When the mic and cam are ready...
+            webrtc.on('readyToCall', function() {
+    
+                //temporarily hardcoding roomname
+                webrtc.joinRoom("acb12345678");                     
+    
+                /*
+                // POST slider values to recieve an appropriate room/roomName
+                ajaxPost("{% url 'find_match' %}", {"vocalness": vocalnessSliderVal, "intelligence": intelligenceSliderVal, "energy": energySliderVal}, function(response_context) {
+                    webrtc.joinRoom(response_context["room_name"]); // Join the specified room name
+                });
+                */
+            });
+        
+        
+            webrtc.on('localMediaError', function() {
+                alert("localMediaError - camera/mic access was probably denied");
+            });
+        
+            webrtc.on('joinedRoom', function() {
+                // pointless
+            });
+    
+            webrtc.on('error', function() {
+                alert("Error - Something bad happened...");
+            });
+        
+            webrtc.on('createdPeer', function() {
+                $("#catPic").hide();  
+                var audio = new Audio('/static/audio/meow.mp3');
+                audio.play();
+            });
+        
+        });
     });
 </script>
+<script type="text/javascript" src="//json2jsonp.com/?url=http://catfacts-api.appspot.com/api/facts?number=1&callback=catfactCallback"></script>
 {% endblock %}
