@@ -11,3 +11,12 @@ body {
 .dark_background {
   background-color: #191919;
 }
+#page-content-wrapper,
+container-fluid {
+  padding: 0;
+}
+#localVideo {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
