@@ -18,13 +18,13 @@
                     <p> Your cat's characteristics: </p>
 
                     <span class="sideCenter">Vocalness</span>
-                    <input id="vocalnessSlider"> </input> <!-- type="range" min="0" max="10" -->
+                    <input id="vocalnessSlider" type="range" min="0" max="10"> </input>
                     <br> 
                     <span class="sideCenter">Intelligence</span>
-                    <input id="intelligenceSlider"> </input> <!-- type="range" min="0" max="10" -->
+                    <input id="intelligenceSlider" type="range" min="0" max="10"> </input>
                     <br> 
                     <span class="sideCenter"> Energy </span>
-                    <input id="energySlider"> </input> <!-- type="range" min="0" max="10" -->
+                    <input id="energySlider" type="range" min="0" max="10"> </input>
 
 
                     <!-- Sidebar Stuff Ends Here -->
@@ -74,9 +74,6 @@
         var vocalnessSlider = $("#vocalnessSlider").slider();
         var intelligenceSlider = $("#intelligenceSlider").slider();
         var energySlider = $("#energySlider").slider();
-
-
-
 
         var voc = localStorage.getItem("voc"); //, vocalnessSlider.slider('getValue'));
         var ene = localStorage.getItem("ene"); //, energySlider.slider('getValue'));
