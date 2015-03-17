@@ -136,9 +136,7 @@
                 // chat just started, hide the banner/landing page stuff
                 $(".hideMe").hide();
                 $("body").toggleClass("dark_background", 600);
-                
-    
-                $("#catFact").css("bottom", "-829px");
+                $("#catFact").hide();
     
                 var remotes = document.getElementById('tmp');
                 if (remotes) {
@@ -176,7 +174,7 @@
                     $(".hideMe").show();
                     $("body").toggleClass("dark_background", 600);
                     $("#catPic").attr("src", "/static/img/happycat.jpg");
-                    $("#catFact").css("bottom", "0px");
+                    $("#catFact").show();
                     alert("Partner disconnected!")
                     location.reload(true);
                 });
