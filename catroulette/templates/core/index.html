@@ -140,18 +140,13 @@
     
                 var remotes = document.getElementById('tmp');
                 if (remotes) {
-                    var container = document.createElement('div');
-                    $(container).addClass("embed-responsive embed-responsive-16by9");
-    
-                    container.className = 'videoContainer';
+                    var container = $(document.createElement('div'));
                     container.id = 'container_' + webrtc.getDomId(peer);
-    
-    
+                    
+                    $(container).addClass("embed-responsive embed-responsive-16by9");
                     $(video).addClass("embed-responsive-item");
-    
-    
+                    
                     container.appendChild(video);
-    
     
                     // suppress contextmenu
                     video.oncontextmenu = function () { return false; };
