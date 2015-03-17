@@ -18,13 +18,13 @@
                     <p> Your cat's characteristics: </p>
 
                     <span class="sideCenter">Vocalness</span>
-                    <input id="vocalnessSlider" type="range" min="0" max="10"> </input>
+                    <input id="vocalnessSlider"> </input> <!-- type="range" min="0" max="10" -->
                     <br> 
                     <span class="sideCenter">Intelligence</span>
-                    <input id="intelligenceSlider" type="range" min="0" max="10"> </input>
+                    <input id="intelligenceSlider"> </input> <!-- type="range" min="0" max="10" -->
                     <br> 
                     <span class="sideCenter"> Energy </span>
-                    <input id="energySlider" type="range" min="0" max="10"> </input>
+                    <input id="energySlider"> </input> <!-- type="range" min="0" max="10" -->
 
 
                     <!-- Sidebar Stuff Ends Here -->
@@ -209,14 +209,14 @@
             webrtc.on('readyToCall', function() {
     
                 //temporarily hardcoding roomname
-                webrtc.joinRoom("acb12345678");                     
+//                 webrtc.joinRoom("acb12345678");                     
     
-                /*
+                
                 // POST slider values to recieve an appropriate room/roomName
                 ajaxPost("{% url 'find_match' %}", {"vocalness": vocalnessSliderVal, "intelligence": intelligenceSliderVal, "energy": energySliderVal}, function(response_context) {
                     webrtc.joinRoom(response_context["room_name"]); // Join the specified room name
                 });
-                */
+                
             });
         
         
