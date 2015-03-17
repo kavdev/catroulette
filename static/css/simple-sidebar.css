@@ -7,6 +7,7 @@
 
 #localVideo video {
     height: 200px;
+    z-index: 5
 }
 
 
@@ -20,9 +21,34 @@
   position: absolute;
   width: 100%;
 }
+
+
 .videoContainer video {
-    width: 100%;
+     width: 100%;
+  z-index: 0;
+  
+     height: 100%;
+  
+     position: absolute;
+  
+     top: 557px;
+  
+     /* left: -132px; */
+     object-fit: cover;
 }
+
+#catFact {
+  z-index: 6;
+  position: absolute;
+  /* top: 45px; */
+  bottom: -4px;
+}
+
+
+.container-fluid {
+    padding-top: 8px;
+}
+
 
 #wrapper {
     padding-left: 0;
@@ -142,4 +168,9 @@
         position: relative;
         margin-right: 0;
     }
+}
+
+span#buttonz {
+    left: 15px;
+    position: relative;
 }

@@ -37,7 +37,7 @@
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <span>
+            <span id="buttonz">
                 <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Hide Settings</a>
                 <a class="btn btn-default" id="findPartner">Find a new match</a>
             </span>
@@ -140,6 +140,7 @@
             // chat just started, hide the banner/landing page stuff
             $(".hideMe").hide();
 
+            $("#catFact").css("bottom", "-829px");
 
             var remotes = document.getElementById('tmp');
             if (remotes) {
@@ -167,7 +168,10 @@
 
                 $("#tmp").empty();
                 $(".hideMe").show();
-
+                $("#catPic").attr("src", "/static/img/happycat.jpg");
+                $("#catFact").css("bottom", "0px");
+                alert("Partner disconnected!")
+                location.reload(true);
             });
 
         
@@ -180,11 +184,7 @@
             /*
             // POST slider values to recieve an appropriate room/roomName
             ajaxPost("{% url 'find_match' %}", {"vocalness": vocalnessSliderVal, "intelligence": intelligenceSliderVal, "energy": energySliderVal}, function(response_context) {
-            
                 webrtc.joinRoom(response_context["room_name"]); // Join the specified room name
-                $("#catPic").hide();                            // Hide the loading gif
-                $("#findPartner").html("Find a new match");     // "Find a Match" --> "Find Next Match"
-
             });
             */
         });
@@ -203,7 +203,6 @@
         });
     
         webrtc.on('createdPeer', function() {
-            alert("connected to peer!");
             $("#catPic").hide();  
             var audio = new Audio('/static/audio/meow.mp3');
             audio.play();
