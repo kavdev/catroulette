@@ -3,7 +3,6 @@
 }
 
 
-
 #wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
@@ -56,7 +55,6 @@
     padding: 0;
     color: white;
     list-style: none;
-
 }
 
 .sidebar-nav li {

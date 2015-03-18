@@ -45,7 +45,7 @@
                             <h1>CatRoulette</h1>
                             <p>It's ChatRoulette .... for cats.</p>
                             <img id="catPic" src="{% static 'img/happycat.jpg' %}" />
-                            <span id="tmp"></span>
+                            <div id="videoContainer"></div>
                             <br>
                             <br>
                             <h2 id="catFact"></h2>
@@ -118,9 +118,9 @@
         var intelligenceSliderVal = intelligenceSlider.slider('getValue');
         var energySliderVal = energySlider.slider('getValue');
     
-        $("#tmp").empty();
-        $("#tmp").append("<div id=\"localVideo\" muted></div>");
-        $("#tmp").append("<div id=\"remoteVideo\"></div>");
+        $("#videoContainer").empty();
+        $("#videoContainer").append("<div id=\"localVideo\" muted></div>");
+        $("#videoContainer").append("<div id=\"remoteVideo\"></div>");
     
         var webrtc = new SimpleWebRTC({
             localVideoEl: 'localVideo',
