@@ -1,3 +1,6 @@
+ .sideCenter {
+    text-align: center;
+}
 
 
 
@@ -53,6 +56,7 @@
     padding: 0;
     color: white;
     list-style: none;
+
 }
 
 .sidebar-nav li {
@@ -81,6 +85,7 @@
     height: 65px;
     font-size: 18px;
     line-height: 60px;
+    padding-left: 10px;
 }
 
 .sidebar-nav > .sidebar-brand a {

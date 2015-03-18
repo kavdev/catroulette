@@ -11,17 +11,19 @@
                 <div class="sidebar-brand" ng-controller="sidebarCtrl">
                     <!-- Sidebar Stuff Starts Here -->
 
-                    <center>
-                        <h> Settings </h>
-                    </center>
+
+                    <h class="sideCenter"> Settings </h>
+
                     <br>
                     <p> Your cat's characteristics: </p>
 
-                    Vocalness
+                    <span class="sideCenter">Vocalness</span>
                     <input id="vocalnessSlider"> </input>
-                    <br> Intelligence
+                    <br> 
+                    <span class="sideCenter">Intelligence</span>
                     <input id="intelligenceSlider"> </input>
-                    <br> Energy
+                    <br> 
+                    <span class="sideCenter"> Energy </span>
                     <input id="energySlider"> </input>
 
 
@@ -47,10 +49,6 @@
                             <br>
                             <br>
                             <h2 id="catFact"></h2>
-
-                            <!-- This is a temporary hack to show utilization of the cat facts api
-                                 without having to create a proxy server to deal with CORS atm.
-                                 You basically pretend the json is a script so the cross domain fetch works -->
                             <script>
                                 function myCallback(json) {
                                     $("#catFact").html("Complimentary Cat Fact: " + json.facts[0]);
@@ -141,7 +139,7 @@
     
         webrtc.on('joinedRoom', function() {
             alert("joinedRoom - Works! - play a greeting cat sound?");
-            var audio = new Audio('./audio/meow.mp3');
+            var audio = new Audio('/static/audio/meow.mp3');
             audio.play();
         });
     
