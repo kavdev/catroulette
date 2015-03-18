@@ -42,10 +42,13 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <center>
-                            <h1>CatRoulette</h1>
-                            <p>It's ChatRoulette .... for cats.</p>
-                            <img id="catPic" src="{% static 'img/happycat.jpg' %}" />
-                            <div id="videoContainer"></div>
+                            <h1 class="hideMe">CatRoulette</h1>
+                            <p class="hideMe">It's ChatRoulette .... for cats.</p>
+                            <img class="hideMe" id="catPic" src="{% static 'img/happycat.jpg' %}" />
+                            <div id="videoContainer">
+                                <div id="localScreenContainer"></div>
+                                <div id="remotes"></div>
+                            </div>
                             <br>
                             <br>
                             <h2 id="catFact"></h2>
@@ -88,16 +91,6 @@
     // "Find a Match" click handler
     $("#findPartner").click(function(e) {
     
-        // Update the catfact every time they click the find a (new) match
-        $.ajax({
-            url: "<serverURL>/catFact",
-            success: function(catFact){
-                $("#catFact").html("Complimentary Cat Fact: " + catFact);
-            },
-            dataType: "text"
-        });
-    
-    
         // Set loading gif while a match is found
         $("#catPic").attr("src", "/static/img/avatar-cat.gif");
     
@@ -127,15 +120,59 @@
 
 
         // Add our video containers 
-        $("#videoContainer").empty();
-        $("#videoContainer").append("<div id=\"localVideo\" muted></div>");
-        $("#videoContainer").append("<div id=\"remoteVideo\"></div>");
+        //$("#videoContainer").empty();
+        $("#localScreenContainer").empty();
+        $("#remotes").empty();
+        $("#localScreenContainer").append("<div id=\"localVideo\" muted></div>");
+        //$("#videoContainer").append("<div id=\"remoteVideo\"></div>");
     
         var webrtc = new SimpleWebRTC({
             localVideoEl: 'localVideo',
-            remoteVideosEl: 'remoteVideo',
+            remoteVideosEl: '',
             autoRequestMedia: true
         });
+
+
+        // a peer video has been added
+        webrtc.on('videoAdded', function (video, peer) {
+            console.log('video added', peer);
+
+            // chat just started, hide the banner/landing page stuff
+            $(".hideMe").hide();
+
+            var remotes = document.getElementById('remotes');
+            if (remotes) {
+                var container = document.createElement('div');
+                container.className = 'videoContainer';
+                container.id = 'container_' + webrtc.getDomId(peer);
+                container.appendChild(video);
+
+                // suppress contextmenu
+                video.oncontextmenu = function () { return false; };
+
+                remotes.appendChild(container);
+            }
+        });
+
+
+        // a peer video was removed
+        webrtc.on('videoRemoved', function (video, peer) {
+            console.log('video removed ', peer);
+            
+            // chat just ended, so hide all the video stuff, and re-show the banner/landing page
+            $("#localScreenContainer").empty();
+            $("#remotes").empty();
+            //$("#videoContainer").hide(); 
+            $(".hideMe").show();
+
+            // I don't think this is necessary since I emptied #videoContainer...
+            var remotes = document.getElementById('remotes');
+            var el = document.getElementById(peer ? 'container_' + webrtc.getDomId(peer) : 'localScreenContainer');
+            if (remotes && el) {
+                remotes.removeChild(el);
+            }
+        });
+
         
         // When the mic and cam are ready...
         webrtc.on('readyToCall', function() {
@@ -146,8 +183,6 @@
                 webrtc.joinRoom(response_context["room_name"]); // Join the specified room name
                 $("#catPic").hide();                            // Hide the loading gif
                 $("#findPartner").html("Find a new match");     // "Find a Match" --> "Find Next Match"
-            
-                // TODO - expand videos to larger sizes...style them
 
             });
         });
