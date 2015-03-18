@@ -1,5 +1,17 @@
+ .sideCenter {
+    text-align: center;
+}
 
-
+.videoContainer {
+    position: relative;
+    width: 200px;
+    height: 150px;
+}
+.videoContainer video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
 
 #wrapper {
     padding-left: 0;
@@ -51,7 +63,7 @@
     width: 250px;
     margin: 0;
     padding: 0;
-    color: white;
+    color: gray;
     list-style: none;
 }
 
@@ -81,6 +93,7 @@
     height: 65px;
     font-size: 18px;
     line-height: 60px;
+    padding-left: 10px;
 }
 
 .sidebar-nav > .sidebar-brand a {
