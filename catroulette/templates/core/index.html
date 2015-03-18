@@ -120,19 +120,20 @@
 
 
         // Add our video containers 
-        //$("#videoContainer").empty();
-        $("#localScreenContainer").empty();
-        $("#remotes").empty();
+
+        $("#localScreenContainer").empty();      
         $("#localScreenContainer").append("<div id=\"localVideo\" muted></div>");
-        //$("#videoContainer").append("<div id=\"remoteVideo\"></div>");
+
+        $("#remotes").empty();
+        $("#remotes").append("<div id=\"remoteVideo\"></div>");
     
         var webrtc = new SimpleWebRTC({
             localVideoEl: 'localVideo',
-            remoteVideosEl: '',
+            remoteVideosEl: 'remoteVideo',
             autoRequestMedia: true
         });
 
-
+/*
         // a peer video has been added
         webrtc.on('videoAdded', function (video, peer) {
             console.log('video added', peer);
@@ -172,7 +173,7 @@
                 remotes.removeChild(el);
             }
         });
-
+*/
         
         // When the mic and cam are ready...
         webrtc.on('readyToCall', function() {
@@ -188,20 +189,19 @@
         });
     
         webrtc.on('joinedRoom', function() {
-            alert("joinedRoom..remove this alert once audio works");
             var audio = new Audio('/static/audio/meow.mp3');
             audio.play();
         });
     
         webrtc.on('localMediaError', function() {
             alert("localMediaError - camera/mic access was probably denied");
-            $("#videoContainer").empty();
+            //$("#videoContainer").empty();
             $("#catPic").attr("src", "/static/img/happycat.jpg");
         });
     
         webrtc.on('error', function() {
             alert("Error - Something bad happened...");
-            $("#videoContainer").empty();
+            //$("#videoContainer").empty();
             $("#catPic").attr("src", "/static/img/happycat.jpg");
         });
     
