@@ -101,7 +101,6 @@
         // Set loading gif while a match is found
         $("#catPic").attr("src", "/static/img/avatar-cat.gif");
     
-    
         // Hide the sidebar
         if (!$("#wrapper").hasClass("toggled")) {
             $("#wrapper").toggleClass("toggled");
@@ -118,6 +117,16 @@
         var intelligenceSliderVal = intelligenceSlider.slider('getValue');
         var energySliderVal = energySlider.slider('getValue');
     
+
+        // Validate settings before we continue
+        if (!($.isNumeric(vocalnessSliderVal) && $.isNumeric(intelligenceSliderVal) && $.isNumeric(energySliderVal))) {
+            alert("Couldn't determine slider values!")
+            $("#catPic").attr("src", "/static/img/happycat.jpg");
+            return;
+        }
+
+
+        // Add our video containers 
         $("#videoContainer").empty();
         $("#videoContainer").append("<div id=\"localVideo\" muted></div>");
         $("#videoContainer").append("<div id=\"remoteVideo\"></div>");
@@ -127,36 +136,42 @@
             remoteVideosEl: 'remoteVideo',
             autoRequestMedia: true
         });
-    
+        
+        // When the mic and cam are ready...
         webrtc.on('readyToCall', function() {
+
             // POST slider values to recieve an appropriate room/roomName
             ajaxPost("{% url 'find_match' %}", {"vocalness": vocalnessSliderVal, "intelligence": intelligenceSliderVal, "energy": energySliderVal}, function(response_context) {
+            
                 webrtc.joinRoom(response_context["room_name"]); // Join the specified room name
-                $("#catPic").hide(); // Hide the loading gif
-                $("#findPartner").html("Find a new match"); // "Find a Match" --> "Find Next Match"
+                $("#catPic").hide();                            // Hide the loading gif
+                $("#findPartner").html("Find a new match");     // "Find a Match" --> "Find Next Match"
+            
+                // TODO - expand videos to larger sizes...style them
+
             });
         });
     
         webrtc.on('joinedRoom', function() {
-            alert("joinedRoom - Works! - play a greeting cat sound?");
+            alert("joinedRoom..remove this alert once audio works");
             var audio = new Audio('/static/audio/meow.mp3');
             audio.play();
         });
     
         webrtc.on('localMediaError', function() {
             alert("localMediaError - camera/mic access was probably denied");
+            $("#videoContainer").empty();
+            $("#catPic").attr("src", "/static/img/happycat.jpg");
         });
     
         webrtc.on('error', function() {
-            alert("error - idk yet");
+            alert("Error - Something bad happened...");
+            $("#videoContainer").empty();
+            $("#catPic").attr("src", "/static/img/happycat.jpg");
         });
     
         webrtc.on('createdPeer', function() {
-            alert("createdPeer - idk yet");
-        });
-    
-        webrtc.on('localScreenAdded', function() {
-            alert("localScreenAdded - idk yet");
+            alert("createdPeer - ...");
         });
     
     });
