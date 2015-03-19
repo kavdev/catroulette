@@ -7,6 +7,7 @@
 
 #localVideo video {
     height: 200px;
+    z-index: 5
 }
 
 
@@ -20,11 +21,17 @@
   position: absolute;
   width: 100%;
 }
+
+
 .videoContainer video {
     width: 100%;
+    z-index: 4;
 }
 
-
+#catFact {
+  z-index: 6;
+  position: absolute;
+}
 
 
 .container-fluid {
