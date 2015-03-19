@@ -46,8 +46,10 @@
                             <p class="hideMe">It's ChatRoulette .... for cats.</p>
                             <img class="hideMe" id="catPic" src="{% static 'img/happycat.jpg' %}" />
                             <div id="videoContainer">
-                                <div id="localScreenContainer"></div>
-                                <div id="remotes"></div>
+                                <div id="localVideoWrapper">
+                                    <video height="300" id="localVideo"></video> 
+                                </div>
+                                <div id="remotesVideos"></div>
                             </div>
                             <br>
                             <br>
@@ -121,15 +123,15 @@
 
         // Add our video containers 
 
-        $("#localScreenContainer").empty();      
-        $("#localScreenContainer").append("<div id=\"localVideo\" muted></div>");
+        //$("#localScreenContainer").empty();      
+       // $("#localScreenContainer").append("<div id=\"localVideo\" muted></div>");
 
-        $("#remotes").empty();
-        $("#remotes").append("<div id=\"remoteVideo\"></div>");
+       // $("#remotes").empty();
+       // $("#remotes").append("<div id=\"remoteVideo\"></div>");
     
         var webrtc = new SimpleWebRTC({
             localVideoEl: 'localVideo',
-            remoteVideosEl: 'remoteVideo',
+            remoteVideosEl: 'remoteVideos',
             autoRequestMedia: true
         });
 
@@ -178,6 +180,12 @@
         // When the mic and cam are ready...
         webrtc.on('readyToCall', function() {
 
+            //temporarily hardcoding roomname
+            webrtc.joinRoom("acb12345678");
+            $("#catPic").hide();                       
+            $("#findPartner").html("Find a new match");
+
+            /*
             // POST slider values to recieve an appropriate room/roomName
             ajaxPost("{% url 'find_match' %}", {"vocalness": vocalnessSliderVal, "intelligence": intelligenceSliderVal, "energy": energySliderVal}, function(response_context) {
             
@@ -186,6 +194,7 @@
                 $("#findPartner").html("Find a new match");     // "Find a Match" --> "Find Next Match"
 
             });
+            */
         });
     
         webrtc.on('joinedRoom', function() {
