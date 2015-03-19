@@ -71,13 +71,13 @@
     }
     
     $(window).resize(function() {
-        $("#tmp").css("height", $(document).height() - 150 + "px");
-        $("#tmp, video").css("max-height", $(document).height() - 150 + "px");
+        $("#tmp").css("height", $(window).height() - 150 + "px");
+        $("#tmp, video").css("max-height", $(window).height() - 150 + "px");
     });
 
     $(document).ready(function () {
-        $("#tmp").css("height", $(document).height() - 150 + "px");
-        $("#tmp").css("max-height", $(document).height() - 150 + "px");
+        $("#tmp").css("height", $(window).height() - 150 + "px");
+        $("#tmp").css("max-height", $(window).height() - 150 + "px");
     
     
         var vocalnessSlider = $("#vocalnessSlider").slider();
@@ -185,7 +185,7 @@
                     
                     $(container).addClass("embed-responsive embed-responsive-16by9");
                     $(video).addClass("embed-responsive-item");
-                    $("video").css("max-height", $(document).height() - 150 + "px");
+                    $("video").css("max-height", $(window).height() - 150 + "px");
                     
                     container.append(video);
 
