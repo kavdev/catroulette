@@ -127,16 +127,15 @@
     
      $("#tmp").empty();
      $("#tmp").append("<div id=\"localVideo\" muted></div>");
-    $("#tmp").append("<div id=\"remoteVideo\"></div>");
+    //$("#tmp").append("<div id=\"remoteVideo\"></div>");
 
 
         var webrtc = new SimpleWebRTC({
             localVideoEl: 'localVideo',
-            remoteVideosEl: 'remoteVideo',
+            remoteVideosEl: '',
             autoRequestMedia: true
         });
 
-/*
         // a peer video has been added
         webrtc.on('videoAdded', function (video, peer) {
             console.log('video added', peer);
@@ -144,7 +143,7 @@
             // chat just started, hide the banner/landing page stuff
             $(".hideMe").hide();
 
-            var remotes = document.getElementById('remotes');
+            var remotes = document.getElementById('tmp');
             if (remotes) {
                 var container = document.createElement('div');
                 container.className = 'videoContainer';
@@ -157,7 +156,7 @@
                 remotes.appendChild(container);
             }
         });
-
+/*
 
         // a peer video was removed
         webrtc.on('videoRemoved', function (video, peer) {
@@ -216,7 +215,7 @@
         });
     
         webrtc.on('createdPeer', function() {
-            alert("createdPeer - ...");
+            alert("createdPeer!");
         });
     
     });
