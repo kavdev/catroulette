@@ -44,21 +44,22 @@
                         <center>
                             <h1 class="hideMe">CatRoulette</h1>
                             <p class="hideMe">It's ChatRoulette .... for cats.</p>
-                            <img class="hideMe" id="catPic" src="{% static 'img/happycat.jpg' %}" />
-                            <div id="tmp">
-                            </div>
-                            <br>
-                            <br>
-                            <h2 id="catFact"></h2>
-                            <script>
-                                function myCallback(json) {
-                                    $("#catFact").html("Complimentary Cat Fact: " + json.facts[0]);
-                                }
-                            </script>
-                            <script type="text/javascript" src="//json2jsonp.com/?url=http://catfacts-api.appspot.com/api/facts?number=2&callback=myCallback"></script>
-                            <br>
-                            <br>
-                            <button id="findPartner">Find a Match</button>
+                        </center>
+                        <img class="hideMe" id="catPic" src="{% static 'img/happycat.jpg' %}" />
+                        <div id="tmp">
+                        </div>
+                        <br>
+                        <br>
+                        <h2 id="catFact"></h2>
+                        <script>
+                             function myCallback(json) {
+                                $("#catFact").html("Complimentary Cat Fact: " + json.facts[0]);
+                             }
+                        </script>
+                        <script type="text/javascript" src="//json2jsonp.com/?url=http://catfacts-api.appspot.com/api/facts?number=2&callback=myCallback"></script>
+                        <br>
+                         <br>
+                        <button id="findPartner">Find a Match</button>
                         </center>
                     </div>
                 </div>
