@@ -18,13 +18,13 @@
                     <p> Your cat's characteristics: </p>
 
                     <span class="sideCenter">Vocalness</span>
-                    <input id="vocalnessSlider"> </input>
+                    <input id="vocalnessSlider" type="range" min="0" max="10"> </input>
                     <br> 
                     <span class="sideCenter">Intelligence</span>
-                    <input id="intelligenceSlider"> </input>
+                    <input id="intelligenceSlider" type="range" min="0" max="10"> </input>
                     <br> 
                     <span class="sideCenter"> Energy </span>
-                    <input id="energySlider"> </input>
+                    <input id="energySlider" type="range" min="0" max="10"> </input>
 
 
                     <!-- Sidebar Stuff Ends Here -->
@@ -79,6 +79,7 @@
         var voc = parseInt(localStorage.getItem("voc")); //, vocalnessSlider.slider('getValue'));
         var ene = parseInt(localStorage.getItem("ene")); //, energySlider.slider('getValue'));
         var intt = parseInt(localStorage.getItem("int")); //, intelligenceSlider.slider('getValue'));
+
 
         if (voc != null && ene != null && intt != null){
             vocalnessSlider.slider('setValue', voc);
@@ -219,14 +220,14 @@
             webrtc.on('readyToCall', function() {
     
                 //temporarily hardcoding roomname
-                webrtc.joinRoom("acb12345678");                     
+//                 webrtc.joinRoom("acb12345678");                     
     
-                /*
+                
                 // POST slider values to recieve an appropriate room/roomName
                 ajaxPost("{% url 'find_match' %}", {"vocalness": vocalnessSliderVal, "intelligence": intelligenceSliderVal, "energy": energySliderVal}, function(response_context) {
                     webrtc.joinRoom(response_context["room_name"]); // Join the specified room name
                 });
-                */
+                
             });
         
         
