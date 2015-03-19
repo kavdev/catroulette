@@ -124,7 +124,7 @@
         }
 
         $("#tmp").empty();
-        $("#tmp").append("<div id=\"localVideo\" muted></div>");
+        $("#tmp").append("<div id=\"localVideo\" muted class=\"embed-responsive embed-responsive-16by9\"></div>");
 
 
         var webrtc = new SimpleWebRTC({
@@ -136,7 +136,7 @@
         // a peer video has been added
         webrtc.on('videoAdded', function (video, peer) {
             console.log('video added', peer);
-
+            
             // chat just started, hide the banner/landing page stuff
             $(".hideMe").hide();
 
@@ -145,9 +145,16 @@
             var remotes = document.getElementById('tmp');
             if (remotes) {
                 var container = document.createElement('div');
+                $(container).addClass("embed-responsive embed-responsive-16by9")
+
                 container.className = 'videoContainer';
                 container.id = 'container_' + webrtc.getDomId(peer);
+
+
+                $(video).addClass("embed-responsive-item");
+                $("#localVideo").addClass("embed-responsive-item");
                 container.appendChild(video);
+
 
                 // suppress contextmenu
                 video.oncontextmenu = function () { return false; };
