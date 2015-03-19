@@ -69,8 +69,17 @@
     function catfactCallback(json) {
         $("#catFact").html("Complimentary Cat Fact: " + json.facts[0]);
     }
+    
+    $(window).resize(function() {
+        $("#tmp").css("height", $(document).height() - 150 + "px");
+        $("#tmp, video").css("max-height", $(document).height() - 150 + "px");
+    });
 
     $(document).ready(function () {
+        $("#tmp").css("height", $(document).height() - 150 + "px");
+        $("#tmp").css("max-height", $(document).height() - 150 + "px");
+    
+    
         var vocalnessSlider = $("#vocalnessSlider").slider();
         var intelligenceSlider = $("#intelligenceSlider").slider();
         var energySlider = $("#energySlider").slider();
@@ -180,6 +189,7 @@
                     
                     $(container).addClass("embed-responsive embed-responsive-16by9");
                     $(video).addClass("embed-responsive-item");
+                    $("video").css("max-height", $(document).height() - 150 + "px");
                     
                     container.append(video);
 
