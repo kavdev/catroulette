@@ -49,14 +49,10 @@
                             <p class="hideMe">It's ChatRoulette .... for cats.</p>
                             <img class="hideMe" id="catPic" src="{% static 'img/happycat.jpg' %}" />
                         </center>
-                        <div id="tmp"></div>
-                        <br>
-                        <br>
                         <center>
                             <h2 id="catFact"></h2>
-                            <br>
-                            <br>
                         </center>
+                        <div id="tmp" style="display: none;"></div>
                     </div>
                 </div>
             </div>
@@ -76,10 +72,6 @@
     });
 
     $(document).ready(function () {
-        $("#tmp").css("height", $(window).height() - 150 + "px");
-        $("#tmp").css("max-height", $(window).height() - 150 + "px");
-    
-    
         var vocalnessSlider = $("#vocalnessSlider").slider();
         var intelligenceSlider = $("#intelligenceSlider").slider();
         var energySlider = $("#energySlider").slider();
@@ -134,6 +126,7 @@
     
             // Set loading gif while a match is found
             $("#catPic").attr("src", "/static/img/avatar-cat.gif");
+            $("#catPic").addClass("img-thumbnail");
         
             // Hide the sidebar
             if (!$("#wrapper").hasClass("toggled")) {
@@ -154,7 +147,8 @@
     
             // Validate settings before we continue
             if (!($.isNumeric(vocalnessSliderVal) && $.isNumeric(intelligenceSliderVal) && $.isNumeric(energySliderVal))) {
-                alert("Couldn't determine slider values!")
+                alert("Couldn't determine slider values!");
+                $("#catPic").removeClass("img-thumbnail");
                 $("#catPic").attr("src", "/static/img/happycat.jpg");
                 return;
             }
@@ -171,6 +165,9 @@
     
             // a peer video has been added
             webrtc.on('videoAdded', function (video, peer) {
+                $("#tmp").show();
+                $("#tmp").css("height", $(window).height() - 150 + "px");
+                $("#tmp").css("max-height", $(window).height() - 150 + "px");
                 console.log('video added', peer);
     
                 // chat just started, hide the banner/landing page stuff
@@ -209,6 +206,7 @@
                     $("#tmp").empty();
                     $(".hideMe").show();
                     $("body").toggleClass("dark_background", 600);
+                    $("#catPic").removeClass("img-thumbnail");
                     $("#catPic").attr("src", "/static/img/happycat.jpg");
                     $("#catFact").show();
                     alert("Partner disconnected!")
