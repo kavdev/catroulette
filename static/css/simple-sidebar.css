@@ -24,17 +24,24 @@
 
 
 .videoContainer video {
-     width: 1863px;
+     width: 100%;
   z-index: 0;
-  height: 1000px;
-  position: relative;
-  top: 0px;
-  left: -132px;
+  
+     height: 100%;
+  
+     position: absolute;
+  
+     top: 557px;
+  
+     /* left: -132px; */
+     object-fit: cover;
 }
 
 #catFact {
   z-index: 6;
   position: absolute;
+  /* top: 45px; */
+  bottom: -4px;
 }
 
 
@@ -161,4 +168,9 @@
         position: relative;
         margin-right: 0;
     }
+}
+
+span#buttonz {
+    left: 15px;
+    position: relative;
 }
