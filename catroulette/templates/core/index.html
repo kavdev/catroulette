@@ -46,21 +46,21 @@
                             <p class="hideMe">It's ChatRoulette .... for cats.</p>
                             <img class="hideMe" id="catPic" src="{% static 'img/happycat.jpg' %}" />
                         </center>
-                        <div id="tmp">
-                        </div>
+                        <div id="tmp"></div>
                         <br>
                         <br>
-                        <h2 id="catFact"></h2>
+                        <center>
+                            <h2 id="catFact"></h2>
+                            <br>
+                            <br>
+                            <button id="findPartner">Find a Match</button>
+                        </center>
                         <script>
                              function myCallback(json) {
                                 $("#catFact").html("Complimentary Cat Fact: " + json.facts[0]);
                              }
                         </script>
                         <script type="text/javascript" src="//json2jsonp.com/?url=http://catfacts-api.appspot.com/api/facts?number=2&callback=myCallback"></script>
-                        <br>
-                         <br>
-                        <button id="findPartner">Find a Match</button>
-                        </center>
                     </div>
                 </div>
             </div>
@@ -160,13 +160,11 @@
                 container.id = 'container_' + webrtc.getDomId(peer);
                 container.appendChild(video);
 
-                $("#localVideo").remove();
-                $("#tmp").append("<div id=\"localVideo\" muted></div>");
-
                 // suppress contextmenu
                 video.oncontextmenu = function () { return false; };
 
-                remotes.appendChild(container);
+                //remotes.appendChild(container);
+                $("#remotes").prepend(container);
             }
         });
 
