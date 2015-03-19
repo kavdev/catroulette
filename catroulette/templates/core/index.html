@@ -39,7 +39,7 @@
         <div id="page-content-wrapper">
             <span>
                 <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Hide Settings</a>
-                <a class="btn btn-default" id="findPartner">Find a Match</a>
+                <a class="btn btn-default" id="findPartner">Find a new match</a>
             </span>
             <div class="container-fluid">
                 <div class="row">
@@ -93,10 +93,10 @@
     $("#findPartner").click(function(e) {
     
         // If Find a next match, 
-        if ($("#findPartner").html() === "Find a new match") {
+       // if ($("#findPartner").html() === "Find a new match") {
             $("#tmp").empty();
             $("#catPic").show();
-        }
+       // }
 
 
 
@@ -189,7 +189,7 @@
             //temporarily hardcoding roomname
             webrtc.joinRoom("acb12345678");
             $("#catPic").hide();                       
-            $("#findPartner").html("Find a new match");
+            //$("#findPartner").html("Find a new match");
 
             /*
             // POST slider values to recieve an appropriate room/roomName
