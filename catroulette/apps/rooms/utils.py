@@ -105,7 +105,10 @@ def match_cat(cat):
     old_name = room_name
 
     new_cat = get_cat_model().objects.get(id=cat.id)
-    new_likely = get_cat_model().objects.get(id=likely_match.id)
+    new_likely = None
+
+    if likely_match:
+        new_likely = get_cat_model().objects.get(id=likely_match.id)
 
     previously_matched_room = check_for_match(new_cat.id)
     if previously_matched_room:
