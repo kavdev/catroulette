@@ -108,7 +108,7 @@
 
 
             if ($("#findPartner").html() === 'Find a match')
-                $($"#findPartner").html("Find a new match");
+                $("#findPartner").html("Find a new match");
             else {
                 localStorage.setItem("voc", vocalnessSlider.slider('getValue'));
                 localStorage.setItem("ene", energySlider.slider('getValue'));
