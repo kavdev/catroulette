@@ -75,15 +75,21 @@
         var intelligenceSlider = $("#intelligenceSlider").slider();
         var energySlider = $("#energySlider").slider();
 
-        var voc = localStorage.getItem("voc"); //, vocalnessSlider.slider('getValue'));
-        var ene = localStorage.getItem("ene"); //, energySlider.slider('getValue'));
-        var intt = localStorage.getItem("int"); //, intelligenceSlider.slider('getValue'));
+
+        var voc = parseInt(localStorage.getItem("voc")); //, vocalnessSlider.slider('getValue'));
+        var ene = parseInt(localStorage.getItem("ene")); //, energySlider.slider('getValue'));
+        var intt = parseInt(localStorage.getItem("int")); //, intelligenceSlider.slider('getValue'));
+
 
         if (voc != null && ene != null && intt != null){
             vocalnessSlider.slider('setValue', voc);
             energySlider.slider('setValue', ene);
             intelligenceSlider.slider('setValue', intt);
         }
+
+
+        if (document.referrer.indexOf("katroulette") > -1)
+            $("#findPartner").click();
 
 
         // Click handler for sidebar minimization/expansion
@@ -104,9 +110,17 @@
             $("#catPic").show();
 
 
+            var vocalnessSlider = $("#vocalnessSlider").slider();
+            var intelligenceSlider = $("#intelligenceSlider").slider();
+            var energySlider = $("#energySlider").slider();
+
+
+
+
             if ($("#findPartner").html() === 'Find a match')
                 $("#findPartner").html("Find a new match");
             else {
+
                 localStorage.setItem("voc", vocalnessSlider.slider('getValue'));
                 localStorage.setItem("ene", energySlider.slider('getValue'));
                 localStorage.setItem("int", intelligenceSlider.slider('getValue'));
