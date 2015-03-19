@@ -26,7 +26,7 @@
 .videoContainer video {
      width: 1863px;
   z-index: 0;
-  height: 1200px;
+  height: 1000px;
   position: relative;
   top: 0px;
   left: -132px;
@@ -35,7 +35,6 @@
 #catFact {
   z-index: 6;
   position: absolute;
-    bottom: -1069px;
 }
 
 

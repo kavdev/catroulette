@@ -140,6 +140,7 @@
             // chat just started, hide the banner/landing page stuff
             $(".hideMe").hide();
 
+            $("#catFact").css("bottom", "-1000px");
 
             var remotes = document.getElementById('tmp');
             if (remotes) {
@@ -168,6 +169,7 @@
                 $("#tmp").empty();
                 $(".hideMe").show();
                 $("#catPic").attr("src", "/static/img/happycat.jpg");
+                $("#catFact").css("bottom", "0px");
                 alert("Partner disconnected!")
                 location.reload(true);
             });
