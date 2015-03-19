@@ -97,10 +97,6 @@
         }
 
 
-        if (document.referrer.indexOf("katroulette") > -1)
-            $("#findPartner").click();
-
-
         // Click handler for sidebar minimization/expansion
         $("#menu-toggle").click(function(e) {
             if ($("#menu-toggle").html() === "Hide Settings")
@@ -260,6 +256,10 @@
             });
         
         });
+
+
+        if (document.referrer.indexOf("katroulette") > -1)
+            $("#findPartner").click();
     });
 </script>
 <script type="text/javascript" src="//json2jsonp.com/?url=http://catfacts-api.appspot.com/api/facts?number=1&callback=catfactCallback"></script>
