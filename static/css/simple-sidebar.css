@@ -25,6 +25,7 @@
 
 .videoContainer video {
     width: 100%;
+    z-index: 4;
 }
 
 #catFact {
