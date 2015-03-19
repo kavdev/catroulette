@@ -28,6 +28,9 @@ body {
 #tmp {
   overflow: hidden;
 }
+#catFact {
+  margin-top: 20px;
+}
 span#buttonz {
   left: 15px;
   position: relative;
