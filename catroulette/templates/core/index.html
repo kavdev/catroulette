@@ -198,24 +198,21 @@
         });
     
         webrtc.on('joinedRoom', function() {
-            var audio = new Audio('/static/audio/meow.mp3');
-            audio.play();
+            // pointless
         });
     
         webrtc.on('localMediaError', function() {
             alert("localMediaError - camera/mic access was probably denied");
-            //$("#videoContainer").empty();
-            $("#catPic").attr("src", "/static/img/happycat.jpg");
         });
     
         webrtc.on('error', function() {
             alert("Error - Something bad happened...");
-            //$("#videoContainer").empty();
-            $("#catPic").attr("src", "/static/img/happycat.jpg");
         });
     
         webrtc.on('createdPeer', function() {
-            alert("createdPeer!");
+            alert("connected to peer!");
+            var audio = new Audio('/static/audio/meow.mp3');
+            audio.play();
         });
     
     });
