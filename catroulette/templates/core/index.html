@@ -45,11 +45,7 @@
                             <h1 class="hideMe">CatRoulette</h1>
                             <p class="hideMe">It's ChatRoulette .... for cats.</p>
                             <img class="hideMe" id="catPic" src="{% static 'img/happycat.jpg' %}" />
-                            <div id="videoContainer">
-                                <div id="localVideoWrapper">
-                                    <video height="300" id="localVideo"></video> 
-                                </div>
-                                <div id="remotesVideos"></div>
+                            <div id="tmp">
                             </div>
                             <br>
                             <br>
@@ -129,9 +125,14 @@
        // $("#remotes").empty();
        // $("#remotes").append("<div id=\"remoteVideo\"></div>");
     
+     $("#tmp").empty();
+     $("#tmp").append("<div id=\"localVideo\" muted></div>");
+    $("#tmp").append("<div id=\"remoteVideo\"></div>");
+
+
         var webrtc = new SimpleWebRTC({
             localVideoEl: 'localVideo',
-            remoteVideosEl: 'remoteVideos',
+            remoteVideosEl: 'remoteVideo',
             autoRequestMedia: true
         });
 
